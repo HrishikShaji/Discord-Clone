@@ -1,8 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Open_Sans({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -11,7 +12,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <ClerkProvider>
+        <body className={font.className}>{children}</body>
+      </ClerkProvider>
     </html>
   );
 }
