@@ -70,7 +70,7 @@ export const InitialModal = () => {
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Give your server a personality with a name and an image.you can
-            always change it later.
+            always change it later.fuckerrr
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
