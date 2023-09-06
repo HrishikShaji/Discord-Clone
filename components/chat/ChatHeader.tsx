@@ -3,6 +3,7 @@ import React from "react";
 import MobileToggle from "../MobileToggle";
 import Image from "next/image";
 import UserAvatar from "../UserAvatar";
+import SocketIndicator from "../SocketIndicator";
 
 interface ChatHeaderProps {
   serverId: string;
@@ -22,6 +23,9 @@ const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeaderProps) => {
         <Hash className="w-5 h-5 text-zinc-500 dark:text-zinc-400 mr-2" />
       )}
       <p className="font-semibold text-md text-black dark:text-white">{name}</p>
+      <div className="ml-auto flex items-center">
+        <SocketIndicator />
+      </div>
     </div>
   );
 };
