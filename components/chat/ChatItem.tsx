@@ -13,6 +13,7 @@ import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import axios from "axios";
+import { useModalStore } from "@/hooks/useModalStore";
 
 interface ChatItemProps {
   id: string;
@@ -52,7 +53,8 @@ const ChatItem = ({
   socketUrl,
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+
+  const { onOpen } = useModalStore();
 
   useEffect(() => {
     const handleKeyDown = (event: any) => {
@@ -75,9 +77,10 @@ const ChatItem = ({
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(id);
     try {
       const url = qs.stringifyUrl({
-        url: `${socketUrl}/${id}}`,
+        url: `${socketUrl}/${id}`,
         query: socketQuery,
       });
 
@@ -175,6 +178,7 @@ const ChatItem = ({
                       <FormControl>
                         <div className="relative w-full">
                           <Input
+                            {...field}
                             disabled={isLoading}
                             placeholder="Edited message"
                             className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
@@ -206,7 +210,15 @@ const ChatItem = ({
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete">
-            <Trash className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+            <Trash
+              onClick={() =>
+                onOpen("deleteMessage", {
+                  apiUrl: `${socketUrl}/${id}`,
+                  query: socketQuery,
+                })
+              }
+              className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+            />
           </ActionTooltip>
         </div>
       )}
