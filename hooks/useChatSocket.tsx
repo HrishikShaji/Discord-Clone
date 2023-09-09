@@ -41,7 +41,7 @@ export const useChatSocket = ({
               if (item.id === message.id) {
                 return message;
               }
-              return message;
+              return item;
             }),
           };
         });
